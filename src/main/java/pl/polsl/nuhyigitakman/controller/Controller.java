@@ -57,10 +57,10 @@ public class Controller {
     public String updateController(String choice, String text){
         String output;
         if (choice.equals("E")){
-            output = coder.encrypt(matrices.getPlot(), matrices.getPlotTwo(), matrices.getPlotThree(), text);
+            output = coder.encodeText(matrices.getPlot(), matrices.getPlotTwo(), matrices.getPlotThree(), text, true);
         }
         else{
-            output = coder.decrypt(matrices.getPlot(), matrices.getPlotTwo(), matrices.getPlotThree(), text);
+            output = coder.encodeText(matrices.getPlot(), matrices.getPlotTwo(), matrices.getPlotThree(), text, false);
         }
         return output;
     }

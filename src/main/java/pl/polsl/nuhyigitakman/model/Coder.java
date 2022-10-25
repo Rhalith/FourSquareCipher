@@ -10,6 +10,20 @@ import java.util.Arrays;
  */
 public class Coder {
 
+    public String encodeText(char[] plot, char[] plot1, char[] plot2, String text, boolean isEncryption){
+
+        try {
+            if(isEncryption){
+                return encrypt(plot, plot1, plot2, text);
+            }
+            else{
+                return decrypt(plot, plot1, plot2, text);
+            }
+        } catch (Exception e){
+            return "Something went wrong, please try again later!";
+        }
+
+    }
     /**
      * Decrypting the encrypted string by using key arrays
      * @param plot fixed arrays(Q1 and Q4) for four-square cipher
@@ -18,10 +32,11 @@ public class Coder {
      * @param encryptedText encrypted text for decryption
      * @return decrypted string
      */
-    public String decrypt(char[] plot, char[] plot1, char[] plot2, String encryptedText) {
+    private String decrypt(char[] plot, char[] plot1, char[] plot2, String encryptedText) {
         char[] pairs = new char[2];
         String decryptedText = "";
         String[] pairsOfEncryptedText = new String[encryptedText.length() / 2];
+
 
         int cursor = 0;
         for (int i = 0; i < pairsOfEncryptedText.length; i++) {
@@ -33,28 +48,28 @@ public class Coder {
         System.out.println("Pairs: " + Arrays.toString(pairsOfEncryptedText));
 
         // O(nk)
-        for (int i = 0; i < pairsOfEncryptedText.length; i++) {
+        for (String s : pairsOfEncryptedText) {
             int column_a = 0;
             int row_a = 0;
             int column_b = 0;
             int row_b = 0;
 
             // get the pairs
-            pairs[0] = pairsOfEncryptedText[i].charAt(0);
-            pairs[1] = pairsOfEncryptedText[i].charAt(1);
+            pairs[0] = s.charAt(0);
+            pairs[1] = s.charAt(1);
 
             // find the pairs on key plot 1 NormalAlphabets
             for (int j = 0; j < plot.length; j++) {
                 // find the first pair to from the normal alphabets
-                if(pairs[0] == plot1[j]) {
+                if (pairs[0] == plot1[j]) {
                     // the plot is 5 by 25 and we need to find the row, we can convert it to 5x5 (divide 5)
                     row_a = (j / 5) * 5;
-                    // to find the column we need to see the remainder, we (mod) it by 5 (j % 5)
+                    // We need to find the column by seeing the remainder, therefore we mod it by 5
                     column_a = j % 5;
                 }
 
                 // find the second pair to from the normal alphabets
-                if(pairs[1] == plot2[j]) {
+                if (pairs[1] == plot2[j]) {
                     row_b = (j / 5) * 5;
                     column_b = j % 5;
                 }
@@ -69,14 +84,14 @@ public class Coder {
         return decryptedText;
     }
     /**
-     * Decrypting the encrypted string by using key arrays
+     * Encrypting the decrypted string by using key arrays
      * @param plot fixed arrays(Q1 and Q4) for four-square cipher
      * @param plot1 array Q2
      * @param plot2 array Q3
-     * @param plainText encrypted text for decryption
-     * @return decrypted string
+     * @param plainText decrypted text for decryption
+     * @return encrypted string
      */
-    public String encrypt(char[] plot, char[] plot1, char[] plot2, String plainText) {
+    private String encrypt(char[] plot, char[] plot1, char[] plot2, String plainText) {
         char[] pairs = new char[2];
         String encryptedText = "";
         plainText = plainText.replaceAll("\\s", "");
@@ -93,20 +108,20 @@ public class Coder {
         System.out.println("Pairs: " + Arrays.toString(pairsOfEncryptText));
 
         // O(nk)
-        for (int i = 0; i < pairsOfEncryptText.length; i++) {
+        for (String s : pairsOfEncryptText) {
             int column_a = 0;
             int row_a = 0;
             int column_b = 0;
             int row_b = 0;
 
             // get the pairs
-            pairs[0] = pairsOfEncryptText[i].charAt(0);
-            pairs[1] = pairsOfEncryptText[i].charAt(1);
+            pairs[0] = s.charAt(0);
+            pairs[1] = s.charAt(1);
 
             // find the pairs on key fixed alphabet
             for (int j = 0; j < plot.length; j++) {
                 // find the first pair to from the fixed alphabets
-                if(pairs[0] == plot[j]) {
+                if (pairs[0] == plot[j]) {
                     // the plot is 5 by 25 and we need to find the row, we can convert it to 5x5 (divide 5)
                     row_a = (j / 5) * 5;
                     // to find the column we need to see the remainder, we (mod) it by 5 (j % 5)
@@ -114,7 +129,7 @@ public class Coder {
                 }
 
                 // find the second pair to from the fixed alphabets
-                if(pairs[1] == plot[j]) {
+                if (pairs[1] == plot[j]) {
                     row_b = (j / 5) * 5;
                     column_b = j % 5;
                 }
