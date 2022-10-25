@@ -13,12 +13,12 @@ import java.util.Scanner;
  *
  * @version 1.0
  */
-
-
 public class Main {
 
+
     /**
-     * Main method of cipher
+     * Main method for cipher
+     * @param args String[]
      */
     public static void main(String[] args) {
 

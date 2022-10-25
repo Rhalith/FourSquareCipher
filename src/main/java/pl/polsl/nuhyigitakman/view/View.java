@@ -5,22 +5,63 @@ import pl.polsl.nuhyigitakman.controller.Controller;
 import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ *
+ * @author Nuh Yigit Akman
+ *
+ * @version 1.0
+ */
 public class View {
+    /**
+     * Scanner for using get inputs
+     */
     Scanner scanner;
+    /**
+     * controller for connection
+     */
     Controller controller;
 
+    /**
+     * Constructor for view
+     * @param scanner scanner for using get inputs
+     * @param controller controller for connection
+     */
     public View(Scanner scanner, Controller controller) {
         this.scanner = scanner;
         this.controller = controller;
     }
 
+    /**
+     * Main run method for program.
+     */
     public void run(){
+        /**
+         * User encoding choice
+         */
         String userChoice = new String();
+        /**
+         * User's key choice(random or manual)
+         */
         String keyChoice = new String();
+        /**
+         * User's key input
+         */
         String keyInput = new String();
+        /**
+         * User's input for encryption or decryption
+         */
         String userText = new String();
+        /**
+         * Result of encoding
+         */
         String output = new String();
+        /**
+         * Question text for getting input from user
+         */
         String questionText = new String();
+        /**
+         * Warning text for user to get right input.
+         */
         String warningText = new String();
 
 
@@ -112,9 +153,11 @@ public class View {
             }
         }
         while (!userInput.matches("[a-zA-Z]+(\\s+[a-zA-Z]+)*")){
-            System.out.println();
-            System.out.println("Please enter only English letters.");
-            System.out.print(inputText);
+            if(!userInput.equals("")){
+                System.out.println();
+                System.out.println("Please enter only English letters.");
+                System.out.print(inputText);
+            }
             if(isKey){
                 userInput = scanner.next();
             }

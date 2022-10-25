@@ -9,6 +9,15 @@ import java.util.Arrays;
  * @version 1.0
  */
 public class Coder {
+    /**
+     * Encoding by choosing encryption or decryption
+     * @param plot Q1/Q4 arrays
+     * @param plot1 Q2 array
+     * @param plot2 Q3 array
+     * @param text text that want to be encode
+     * @param isEncryption choose of encryption or decryption
+     * @return encoded string
+     */
 
     public String encodeText(char[] plot, char[] plot1, char[] plot2, String text, boolean isEncryption){
 

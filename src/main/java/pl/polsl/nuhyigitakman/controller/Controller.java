@@ -16,8 +16,21 @@ import pl.polsl.nuhyigitakman.model.Matrices;
 public class Controller {
 
 
+    /**
+     * Matrices class for encoding
+     */
     private Matrices matrices;
+
+    /**
+     * Coder class for encoding
+     */
     private Coder coder;
+
+    /**
+     * Constructor for controller
+     * @param matrices matrices class
+     * @param coder coder class
+     */
 
     public Controller(Matrices matrices, Coder coder) {
         this.matrices = matrices;
@@ -54,6 +67,12 @@ public class Controller {
         plotArray(number, key);
     }
 
+    /**
+     * encoding the text by using model
+     * @param choice encryption or decryption choice
+     * @param text text that want to be encode
+     * @return result of encoding
+     */
     public String updateController(String choice, String text){
         String output;
         if (choice.equals("E")){
