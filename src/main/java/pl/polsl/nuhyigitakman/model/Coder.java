@@ -20,7 +20,7 @@ public class Coder {
                 return decrypt(plot, plot1, plot2, text);
             }
         } catch (Exception e){
-            return "Something went wrong, please try again later!";
+            return e.toString();
         }
 
     }

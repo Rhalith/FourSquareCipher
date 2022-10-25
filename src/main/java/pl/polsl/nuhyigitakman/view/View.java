@@ -97,7 +97,7 @@ public class View {
         String userInput = new String();
         if(isKey){
             try{
-                userInput = scanner.next();
+                userInput = scanner.nextLine();
             }
             catch (Exception e){
                 getInput(scanner, inputText, isKey);
@@ -105,7 +105,7 @@ public class View {
         }
         else{
             try{
-                userInput = scanner.next();
+                userInput = scanner.nextLine();
             }
             catch (Exception e){
                 getInput(scanner, inputText, isKey);
