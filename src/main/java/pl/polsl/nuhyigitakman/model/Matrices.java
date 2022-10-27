@@ -5,6 +5,7 @@
 package pl.polsl.nuhyigitakman.model;
 
 import java.util.*;
+import java.util.List;
 
 /**
  *
@@ -18,15 +19,18 @@ public class Matrices {
     /**
      * Array Q1 and Q4 for cipher
      */
-    char[] plot = new char[25];
+    //char[] plot = new char[25];
+    List<Character> plot = new ArrayList<Character>();
     /**
      * Array Q2 for cipher
      */
-    char[] plotTwo = new char[25];
+    //char[] plotTwo = new char[25];
+    List<Character> plotTwo = new ArrayList<Character>();
     /**
      * Array Q3 for cipher
      */
-    char[] plotThree = new char[25];
+    //char[] plotThree = new char[25];
+    List<Character> plotThree = new ArrayList<Character>();
     /**
      * Removed key for cipher
      */
@@ -36,25 +40,34 @@ public class Matrices {
      * Get Q1 and Q4 arrays
      * @return Q1/Q4 array
      */
-    public char[] getPlot() {
+    public List<Character> getPlot() {
         return plot;
     }
+    //public char[] getPlot() {
+    //    return plot;
+    //}
 
     /**
      * Get Q2 array
      * @return Q2 array
      */
-    public char[] getPlotTwo() {
+    public List<Character> getPlotTwo() {
         return plotTwo;
     }
+    //public char[] getPlotTwo() {
+    //    return plotTwo;
+    //}
 
     /**
      * Get Q3 array
      * @return Q3 array
      */
-    public char[] getPlotThree() {
+    public List<Character> getPlotThree() {
         return plotThree;
     }
+    //public char[] getPlotThree() {
+    //    return plotThree;
+    //}
 
     /**
      * Get removed key
@@ -69,17 +82,18 @@ public class Matrices {
      * @param plot array that will be filled
      * @param remove letter that will not be used.
      */
-    public void plotAlphabets(char[] plot, char remove) {
+    public void plotAlphabets(List<Character> plot, char remove) {
         int cursor = 0;
-        for (int i = 0; i < plot.length; i++) {
+        //I couldn't use plot.size() because plot has no size in first. Therefore, I used 25.
+        for (int i = 0; i < 25; i++) {
             if ((char) ('A' + i) != remove)
             {
-                plot[i] = (char) ('A' + cursor);
+                plot.add(i, (char) ('A' + cursor));
             }
             else
             {
                 cursor++;
-                plot[i] = (char) ('A' + cursor);
+                plot.add(i, (char) ('A' + cursor));
             }
             cursor++;
         }
@@ -92,16 +106,16 @@ public class Matrices {
      * @param key the key that will use for fill
      * @param remove letter that will not be used.
      */
-    public void plotKey(char[] plot, String key, char remove) {
+    public void plotKey(List<Character> plot, String key, char remove) {
         int cursor = 0;
         key = removeDuplicates(key);
-        char[] ckey = key.toCharArray();
+        List<Character> ckey = convertStringToCharList(key);
 
-        for (int i = 0; i < ckey.length; i++) {
-            plot[i] = ckey[i];
+        for (int i = 0; i < ckey.size(); i++) {
+            plot.add(i, ckey.get(i));
         }
 
-        for (int i = ckey.length; i < plot.length; i++) {
+        for (int i = ckey.size(); i < 25; i++) {
 
             if((char) ('A' + cursor) == remove) {
                 cursor++;
@@ -109,8 +123,8 @@ public class Matrices {
 
             int checks = 2;
             for (int j = 0; j < checks; j++) {
-                for (int k = 0; k < ckey.length; k++) {
-                    if(ckey[k] == (char) ('A' + cursor)) {
+                for (int k = 0; k < ckey.size(); k++) {
+                    if(ckey.get(k) == (char) ('A' + cursor)) {
                         cursor++;
                         break;
                     }
@@ -121,7 +135,7 @@ public class Matrices {
                 cursor++;
             }
 
-            plot[i] = (char) ('A' + cursor);
+            plot.add(i, (char) ('A' + cursor));
             cursor++;
 
         }
@@ -132,15 +146,15 @@ public class Matrices {
      * @param plot array that will be filled
      * @param remove letter that will not be used
      */
-    public void randomizeKey(char[] plot, char remove){
+    public void randomizeKey(List<Character> plot, char remove){
         plotAlphabets(plot, remove);
         Random rand = new Random();
 
-        for (int i = 0; i < plot.length; i++) {
-            int randomIndexToSwap = rand.nextInt(plot.length);
-            char temp = plot[randomIndexToSwap];
-            plot[randomIndexToSwap] = plot[i];
-            plot[i] = temp;
+        for (int i = 0; i < 25; i++) {
+            int randomIndexToSwap = rand.nextInt(plot.size());
+            char temp = plot.get(randomIndexToSwap);
+            plot.set(randomIndexToSwap, plot.get(i));
+            plot.set(i, temp);
         }
     }
 
@@ -151,23 +165,42 @@ public class Matrices {
      */
     private String removeDuplicates(String string) {
         string = string.toUpperCase();
-        char[] characters = string.toCharArray();
+        List<Character> characters = convertStringToCharList(string);
         String filtered = "";
 
-        for (int i = 0; i < characters.length; i++) {
+        for (int i = 0; i < characters.size(); i++) {
 
             boolean isReapeated = false;
             for (int j = 0; j < i; j++) {
-                if(characters[i] == characters[j]) {
+                if(characters.get(i) == characters.get(j)) {
                     isReapeated = true;
                     break;
                 }
             }
 
             if(!isReapeated) {
-                filtered += characters[i];
+                filtered += characters.get(i);
             }
         }
         return filtered;
     }
+
+    /**
+     * Converting string to char list
+     * @param text string that wanted to be list
+     * @return char list
+     */
+    private List<Character> convertStringToCharList(String text)
+    {
+
+        List<Character> chars = new ArrayList<>();
+
+        for (char ch : text.toCharArray()) {
+
+            chars.add(ch);
+        }
+
+        return chars;
+    }
+
 }

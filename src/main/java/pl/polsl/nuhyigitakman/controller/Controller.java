@@ -77,6 +77,7 @@ public class Controller {
         String output;
         if (choice.equals("E")){
             output = coder.encodeText(matrices.getPlot(), matrices.getPlotTwo(), matrices.getPlotThree(), text, true);
+            System.out.println(matrices.getPlot().toString()+"\n"+matrices.getPlotTwo().toString()+"\n"+matrices.getPlotThree().toString());
         }
         else{
             output = coder.encodeText(matrices.getPlot(), matrices.getPlotTwo(), matrices.getPlotThree(), text, false);
