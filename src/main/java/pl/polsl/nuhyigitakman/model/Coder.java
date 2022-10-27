@@ -108,6 +108,7 @@ public class Coder {
             int column_b = 0;
             int row_b = 0;
 
+            // get the pairs
             pairs[0] = s.charAt(0);
             pairs[1] = s.charAt(1);
 

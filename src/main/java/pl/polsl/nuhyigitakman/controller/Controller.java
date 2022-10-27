@@ -83,12 +83,4 @@ public class Controller {
         }
         return output;
     }
-    //System.out.println("Q1/Q4: " + Arrays.toString(plot));
-    //System.out.println("Q2: " + Arrays.toString(plot2));
-    //System.out.println("Q3: " + Arrays.toString(plot3));
-    //
-    //String encryptedText = main.encrypt(plot, plot2, plot3, userText);
-    //System.out.println("Encrypted Text is: "+encryptedText+"\n");
-    //String decryptedText = main.decrypt(plot, plot2, plot3, encryptedText);
-    //System.out.println("Decrypted Text is: "+decryptedText+"\n");
 }
