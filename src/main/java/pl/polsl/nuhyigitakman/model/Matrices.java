@@ -93,11 +93,10 @@ public class Matrices {
      * @param remove letter that will not be used.
      */
     public void plotKey(char[] plot, String key, char remove) {
-        int cursor = 0; // additional counter
+        int cursor = 0;
         key = removeDuplicates(key);
-        char[] ckey = key.toCharArray(); // fastest way to convert String to char array
+        char[] ckey = key.toCharArray();
 
-        // plot initial key
         for (int i = 0; i < ckey.length; i++) {
             plot[i] = ckey[i];
         }
@@ -105,14 +104,12 @@ public class Matrices {
         for (int i = ckey.length; i < plot.length; i++) {
 
             if((char) ('A' + cursor) == remove) {
-                // if the current letter is the one which be remove then skip
                 cursor++;
             }
 
-            int checks = 2; // number of checks
+            int checks = 2;
             for (int j = 0; j < checks; j++) {
                 for (int k = 0; k < ckey.length; k++) {
-                    // iterate to the key and compare each to the current character
                     if(ckey[k] == (char) ('A' + cursor)) {
                         cursor++;
                         break;
@@ -121,7 +118,6 @@ public class Matrices {
             }
 
             if((char) ('A' + cursor) == remove) { // recheck
-                // if the current letter is the one which be remove then skip
                 cursor++;
             }
 
@@ -157,21 +153,21 @@ public class Matrices {
         string = string.toUpperCase();
         char[] characters = string.toCharArray();
         String filtered = "";
+
         for (int i = 0; i < characters.length; i++) {
-            // iterate each char on the list
+
             boolean isReapeated = false;
             for (int j = 0; j < i; j++) {
-                // compare one char (current) to all chars
                 if(characters[i] == characters[j]) {
                     isReapeated = true;
                     break;
                 }
             }
 
-            if(!isReapeated) { // if the char is not repeated then add to output
+            if(!isReapeated) {
                 filtered += characters[i];
             }
         }
-        return filtered; // sample input: LOLEEOEO, output: LEO
+        return filtered;
     }
 }

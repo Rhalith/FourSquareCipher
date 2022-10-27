@@ -63,7 +63,7 @@ public class Coder {
             pairs[0] = s.charAt(0);
             pairs[1] = s.charAt(1);
 
-            // find the pairs on key plot 1 NormalAlphabets
+            // find the pairs on key plot fixed alphabet
             for (int j = 0; j < plot.length; j++) {
                 if (pairs[0] == plot1[j]) {
                     row_a = (j / 5) * 5;
