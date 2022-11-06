@@ -1,7 +1,10 @@
 package pl.polsl.nuhyigitakman.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.stream.Collectors.counting;
 
 /**
  *
@@ -12,22 +15,21 @@ import java.util.List;
 public class Coder {
     /**
      * Encoding by choosing encryption or decryption
-     * @param plot Q1/Q4 arrays
-     * @param plot1 Q2 array
-     * @param plot2 Q3 array
+     * @param plot Q1/Q2/Q3/Q4 arrays
      * @param text text that want to be encode
      * @param isEncryption choose of encryption or decryption
      * @return encoded string
      */
 
-    public String encodeText(List<Character> plot, List<Character> plot1, List<Character> plot2, String text, boolean isEncryption){
+    @SafeVarargs
+    public final String encodeText(String text, boolean isEncryption, List<Character>... plot){
 
         try {
             if(isEncryption){
-                return encrypt(plot, plot1, plot2, text);
+                return encrypt(text, plot[0], plot[1], plot[2]);
             }
             else{
-                return decrypt(plot, plot1, plot2, text);
+                return decrypt(text, plot[0], plot[1], plot[2]);
             }
         } catch (Exception e){
             return e.toString();
@@ -36,22 +38,30 @@ public class Coder {
     }
     /**
      * Decrypting the encrypted string by using key arrays
-     * @param plot fixed arrays(Q1 and Q4) for four-square cipher
-     * @param plot1 array Q2
-     * @param plot2 array Q3
+     * @param plot arrays for four-square cipher
      * @param encryptedText encrypted text for decryption
      * @return decrypted string
      */
-    private String decrypt(List<Character> plot, List<Character> plot1, List<Character> plot2, String encryptedText) {
-        char[] pairs = new char[2];
-        String decryptedText = "";
-        String[] pairsOfEncryptedText = new String[encryptedText.length() / 2];
+    @SafeVarargs
+    private String decrypt(String encryptedText, List<Character>... plot) {
+        List<Character> pairs = new ArrayList<>();
+        StringBuilder decryptedText = new StringBuilder();
+        List<String> pairsOfEncryptedText = new ArrayList<>();
+
+        //For set the size of list.
+        for (int i = 0; i < encryptedText.length() / 2; i++) {
+            pairsOfEncryptedText.add("");
+        }
+        for (int i = 0; i < 2; i++) {
+            pairs.add('a');
+        }
 
 
         int cursor = 0;
-        for (int i = 0; i < pairsOfEncryptedText.length; i++) {
-            pairsOfEncryptedText[i] = "" + encryptedText.charAt(cursor) + encryptedText.charAt(cursor + 1);
-            cursor = cursor + 2;
+        for (int i = 0; i < pairsOfEncryptedText.stream()
+                .collect(counting()); i++) {
+            pairsOfEncryptedText.set(i, "" + encryptedText.charAt(cursor) + encryptedText.charAt(cursor + 1));
+            cursor += 2;
         }
 
 
@@ -62,45 +72,54 @@ public class Coder {
             int row_b = 0;
 
             // get the pairs
-            pairs[0] = s.charAt(0);
-            pairs[1] = s.charAt(1);
+            pairs.set(0, s.charAt(0));
+            pairs.set(1, s.charAt(1));
 
             // find the pairs on key plot fixed alphabet
-            for (int j = 0; j < plot.size(); j++) {
-                if (pairs[0] == plot1.get(j)) {
+            for (int j = 0; j < plot[0].stream()
+                    .collect(counting()); j++) {
+                if (pairs.get(0) == plot[1].get(j)) {
                     row_a = (j / 5) * 5;
                     column_a = j % 5;
                 }
 
-                if (pairs[1] == plot2.get(j)) {
+                if (pairs.get(1) == plot[2].get(j)) {
                     row_b = (j / 5) * 5;
                     column_b = j % 5;
                 }
             }
 
-            decryptedText += plot.get(row_a + column_b); // find in the key plot 1 Q1
-            decryptedText += plot.get(row_b + column_a);  // find in the key plot 2 Q4
+            decryptedText.append(plot[0].get(row_a + column_b)); // find in the key plot 1 Q1
+            decryptedText.append(plot[0].get(row_b + column_a));  // find in the key plot 2 Q4
         }
 
-        return decryptedText;
+        return decryptedText.toString();
     }
     /**
      * Encrypting the decrypted string by using key arrays
-     * @param plot fixed arrays(Q1 and Q4) for four-square cipher
-     * @param plot1 array Q2
-     * @param plot2 array Q3
+     * @param plot arrays for four-square cipher
      * @param plainText decrypted text for decryption
      * @return encrypted string
      */
-    private String encrypt(List<Character> plot, List<Character> plot1, List<Character> plot2, String plainText) {
-        char[] pairs = new char[2];
-        String encryptedText = "";
+    @SafeVarargs
+    private String encrypt(String plainText, List<Character>... plot) {
+        List<Character> pairs = new ArrayList<>();
+        StringBuilder encryptedText = new StringBuilder();
         plainText = plainText.replaceAll("\\s", "");
-        String[] pairsOfEncryptText = new String[plainText.length() / 2];
+        List<String> pairsOfEncryptText = new ArrayList<>();
+
+        //For set the size of list.
+        for (int i = 0; i < plainText.length() / 2; i++) {
+            pairsOfEncryptText.add("");
+        }
+        for (int i = 0; i < 2; i++) {
+            pairs.add('a');
+        }
 
         int cursor = 0;
-        for (int i = 0; i < pairsOfEncryptText.length; i++) {
-            pairsOfEncryptText[i] = "" + plainText.charAt(cursor) + plainText.charAt(cursor + 1);
+        for (int i = 0; i < pairsOfEncryptText.stream()
+                .collect(counting()); i++) {
+            pairsOfEncryptText.set(i, "" + plainText.charAt(cursor) + plainText.charAt(cursor + 1));
             cursor = cursor + 2;
         }
 
@@ -111,25 +130,26 @@ public class Coder {
             int row_b = 0;
 
             // get the pairs
-            pairs[0] = s.charAt(0);
-            pairs[1] = s.charAt(1);
+            pairs.set(0, s.charAt(0));
+            pairs.set(1, s.charAt(1));
 
             // find the pairs on key fixed alphabet
-            for (int j = 0; j < plot.size(); j++) {
-                if (pairs[0] == plot.get(j)) {
+            for (int j = 0; j < plot[0].stream()
+                    .collect(counting()); j++) {
+                if (pairs.get(0) == plot[0].get(j)) {
                     row_a = (j / 5) * 5;
                     column_a = j % 5;
                 }
 
-                if (pairs[1] == plot.get(j)) {
+                if (pairs.get(1) == plot[0].get(j)) {
                     row_b = (j / 5) * 5;
                     column_b = j % 5;
                 }
             }
-            encryptedText += plot1.get(row_a + column_b); // find in the key plot 1 Q2
-            encryptedText += plot2.get(row_b + column_a);  // find in the key plot 2 Q3
+            encryptedText.append(plot[1].get(row_a + column_b)); // find in the key plot 1 Q2
+            encryptedText.append(plot[2].get(row_b + column_a));  // find in the key plot 2 Q3
         }
 
-        return encryptedText;
+        return encryptedText.toString();
     }
 }

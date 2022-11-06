@@ -20,17 +20,17 @@ public class Matrices {
      * Array Q1 and Q4 for cipher
      */
     //char[] plot = new char[25];
-    List<Character> plot = new ArrayList<Character>();
+    List<Character> plot = new ArrayList<>();
     /**
      * Array Q2 for cipher
      */
     //char[] plotTwo = new char[25];
-    List<Character> plotTwo = new ArrayList<Character>();
+    List<Character> plotTwo = new ArrayList<>();
     /**
      * Array Q3 for cipher
      */
     //char[] plotThree = new char[25];
-    List<Character> plotThree = new ArrayList<Character>();
+    List<Character> plotThree = new ArrayList<>();
     /**
      * Removed key for cipher
      */
@@ -123,8 +123,8 @@ public class Matrices {
 
             int checks = 2;
             for (int j = 0; j < checks; j++) {
-                for (int k = 0; k < ckey.size(); k++) {
-                    if(ckey.get(k) == (char) ('A' + cursor)) {
+                for (Character character : ckey) {
+                    if (character == (char) ('A' + cursor)) {
                         cursor++;
                         break;
                     }
@@ -166,7 +166,7 @@ public class Matrices {
     private String removeDuplicates(String string) {
         string = string.toUpperCase();
         List<Character> characters = convertStringToCharList(string);
-        String filtered = "";
+        StringBuilder filtered = new StringBuilder();
 
         for (int i = 0; i < characters.size(); i++) {
 
@@ -179,10 +179,10 @@ public class Matrices {
             }
 
             if(!isReapeated) {
-                filtered += characters.get(i);
+                filtered.append(characters.get(i));
             }
         }
-        return filtered;
+        return filtered.toString();
     }
 
     /**
@@ -196,7 +196,6 @@ public class Matrices {
         List<Character> chars = new ArrayList<>();
 
         for (char ch : text.toCharArray()) {
-
             chars.add(ch);
         }
 

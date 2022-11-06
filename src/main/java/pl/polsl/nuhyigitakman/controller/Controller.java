@@ -76,11 +76,11 @@ public class Controller {
     public String updateController(String choice, String text){
         String output;
         if (choice.equals("E")){
-            output = coder.encodeText(matrices.getPlot(), matrices.getPlotTwo(), matrices.getPlotThree(), text, true);
+            output = coder.encodeText(text, true, matrices.getPlot(), matrices.getPlotTwo(), matrices.getPlotThree());
             System.out.println(matrices.getPlot().toString()+"\n"+matrices.getPlotTwo().toString()+"\n"+matrices.getPlotThree().toString());
         }
         else{
-            output = coder.encodeText(matrices.getPlot(), matrices.getPlotTwo(), matrices.getPlotThree(), text, false);
+            output = coder.encodeText(text, false, matrices.getPlot(), matrices.getPlotTwo(), matrices.getPlotThree());
         }
         return output;
     }
