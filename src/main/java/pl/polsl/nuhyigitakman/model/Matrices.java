@@ -19,17 +19,14 @@ public class Matrices {
     /**
      * Array Q1 and Q4 for cipher
      */
-    //char[] plot = new char[25];
     List<Character> plot = new ArrayList<>();
     /**
      * Array Q2 for cipher
      */
-    //char[] plotTwo = new char[25];
     List<Character> plotTwo = new ArrayList<>();
     /**
      * Array Q3 for cipher
      */
-    //char[] plotThree = new char[25];
     List<Character> plotThree = new ArrayList<>();
     /**
      * Removed key for cipher
@@ -43,9 +40,6 @@ public class Matrices {
     public List<Character> getPlot() {
         return plot;
     }
-    //public char[] getPlot() {
-    //    return plot;
-    //}
 
     /**
      * Get Q2 array
@@ -54,9 +48,6 @@ public class Matrices {
     public List<Character> getPlotTwo() {
         return plotTwo;
     }
-    //public char[] getPlotTwo() {
-    //    return plotTwo;
-    //}
 
     /**
      * Get Q3 array
@@ -65,9 +56,6 @@ public class Matrices {
     public List<Character> getPlotThree() {
         return plotThree;
     }
-    //public char[] getPlotThree() {
-    //    return plotThree;
-    //}
 
     /**
      * Get removed key

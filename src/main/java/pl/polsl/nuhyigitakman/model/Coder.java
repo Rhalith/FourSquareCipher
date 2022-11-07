@@ -64,8 +64,8 @@ public class Coder {
             cursor += 2;
         }
 
-
-        for (String s : pairsOfEncryptedText) {
+        //stream olarak dene
+        pairsOfEncryptedText.stream().forEach(s -> {
             int column_a = 0;
             int row_a = 0;
             int column_b = 0;
@@ -74,7 +74,6 @@ public class Coder {
             // get the pairs
             pairs.set(0, s.charAt(0));
             pairs.set(1, s.charAt(1));
-
             // find the pairs on key plot fixed alphabet
             for (int j = 0; j < plot[0].stream()
                     .collect(counting()); j++) {
@@ -91,7 +90,7 @@ public class Coder {
 
             decryptedText.append(plot[0].get(row_a + column_b)); // find in the key plot 1 Q1
             decryptedText.append(plot[0].get(row_b + column_a));  // find in the key plot 2 Q4
-        }
+        });
 
         return decryptedText.toString();
     }
@@ -123,7 +122,7 @@ public class Coder {
             cursor = cursor + 2;
         }
 
-        for (String s : pairsOfEncryptText) {
+        pairsOfEncryptText.stream().forEach(s -> {
             int column_a = 0;
             int row_a = 0;
             int column_b = 0;
@@ -148,7 +147,7 @@ public class Coder {
             }
             encryptedText.append(plot[1].get(row_a + column_b)); // find in the key plot 1 Q2
             encryptedText.append(plot[2].get(row_b + column_a));  // find in the key plot 2 Q3
-        }
+        });
 
         return encryptedText.toString();
     }
