@@ -19,12 +19,12 @@ public class Controller {
     /**
      * Matrices class for encoding
      */
-    private Matrices matrices;
+    private final Matrices matrices;
 
     /**
      * Coder class for encoding
      */
-    private Coder coder;
+    private final Coder coder;
 
     /**
      * Constructor for controller
@@ -81,6 +81,7 @@ public class Controller {
         }
         else{
             output = coder.encodeText(text, false, matrices.getPlot(), matrices.getPlotTwo(), matrices.getPlotThree());
+            System.out.println(matrices.getPlot().toString()+"\n"+matrices.getPlotTwo().toString()+"\n"+matrices.getPlotThree().toString());
         }
         return output;
     }
