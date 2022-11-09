@@ -1,5 +1,6 @@
 package pl.polsl.nuhyigitakman.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -11,9 +12,26 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ *
+ * @author Nuh Yigit Akman
+ *
+ * @version 1.0
+ */
 @TestMethodOrder(OrderAnnotation.class)
 public class CoderTest {
 
+    private Coder coder;
+    private List<Character> plot;
+    private List<Character> plotTwo;
+    private List<Character> plotThree;
+    @BeforeEach
+    public void setUp() {
+        coder = new Coder();
+        plot = Arrays.asList('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','R','S','T','U','V','W','X','Y','Z');
+        plotTwo = Arrays.asList('E','X','A','M','P','L','B','C','D','F','G','H','I','J','K','N','O','R','S','T','U','V','W','Y','Z');
+        plotThree = Arrays.asList('K','E','Y','W','O','R','D','A','B','C','F','G','H','I','J','L','M','N','P','S','T','U','V','X','Z');
+    }
 
     /**
      * Get a correct encrypted text
@@ -24,11 +42,6 @@ public class CoderTest {
     @ParameterizedTest
     @CsvSource(value = {"HELLOWORLD:FYHGHZHSJE"}, delimiter = ':')
     public void testValidEncryption(String plainText, String expectedEncryptedText){
-        Coder coder = new Coder();
-        List<Character> plot = Arrays.asList('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','R','S','T','U','V','W','X','Y','Z');
-        List<Character> plotTwo = Arrays.asList('E','X','A','M','P','L','B','C','D','F','G','H','I','J','K','N','O','R','S','T','U','V','W','Y','Z');
-        List<Character> plotThree = Arrays.asList('K','E','Y','W','O','R','D','A','B','C','F','G','H','I','J','L','M','N','P','S','T','U','V','X','Z');
-
         String encryptedText = coder.encodeText(plainText, true, plot, plotTwo, plotThree);
         assertEquals(expectedEncryptedText, encryptedText);
     }
@@ -42,11 +55,6 @@ public class CoderTest {
     @ParameterizedTest
     @CsvSource(value = {"HELLOWORLD:FAILENCRYPT"}, delimiter = ':')
     public void testInvalidEncryption(String plainText, String expectedEncryptedText){
-        Coder coder = new Coder();
-        List<Character> plot = Arrays.asList('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','R','S','T','U','V','W','X','Y','Z');
-        List<Character> plotTwo = Arrays.asList('E','X','A','M','P','L','B','C','D','F','G','H','I','J','K','N','O','R','S','T','U','V','W','Y','Z');
-        List<Character> plotThree = Arrays.asList('K','E','Y','W','O','R','D','A','B','C','F','G','H','I','J','L','M','N','P','S','T','U','V','X','Z');
-
         String encryptedText = coder.encodeText(plainText, true, plot, plotTwo, plotThree);
         assertNotEquals(expectedEncryptedText, encryptedText);
     }
@@ -60,11 +68,6 @@ public class CoderTest {
     @ParameterizedTest
     @CsvSource(value = {"FYHGHZHSJE:HELLOWORLD"}, delimiter = ':')
     public void testValidDecryption(String plainText, String expectedDecryptedText){
-        Coder coder = new Coder();
-        List<Character> plot = Arrays.asList('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','R','S','T','U','V','W','X','Y','Z');
-        List<Character> plotTwo = Arrays.asList('E','X','A','M','P','L','B','C','D','F','G','H','I','J','K','N','O','R','S','T','U','V','W','Y','Z');
-        List<Character> plotThree = Arrays.asList('K','E','Y','W','O','R','D','A','B','C','F','G','H','I','J','L','M','N','P','S','T','U','V','X','Z');
-
         String decryptedText = coder.encodeText(plainText, false, plot, plotTwo, plotThree);
         assertEquals(expectedDecryptedText, decryptedText);
     }
@@ -77,11 +80,6 @@ public class CoderTest {
     @ParameterizedTest
     @CsvSource(value = {"FYHGHZHSJE:HELLOWORLD"}, delimiter = ':')
     public void testInvalidDecryption(String plainText, String expectedDecryptedText){
-        Coder coder = new Coder();
-        List<Character> plot = Arrays.asList('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','R','S','T','U','V','W','X','Y','Z');
-        List<Character> plotTwo = Arrays.asList('E','X','A','M','P','L','B','C','D','F','G','H','I','J','K','N','O','R','S','T','U','V','W','Y','Z');
-        List<Character> plotThree = Arrays.asList('K','E','Y','W','O','R','D','A','B','C','F','G','H','I','J','L','M','N','P','S','T','U','V','X','Z');
-
         String decryptedText = coder.encodeText(plainText, false, plot, plotTwo, plotThree);
         assertEquals(expectedDecryptedText, decryptedText);
     }
