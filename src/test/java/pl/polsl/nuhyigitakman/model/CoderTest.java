@@ -21,9 +21,21 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(OrderAnnotation.class)
 public class CoderTest {
 
+    /**
+     * coder class for encoding/decoding
+     */
     private Coder coder;
+    /**
+     * Array Q1 and Q4 for cipher
+     */
     private List<Character> plot;
+    /**
+     * Array Q2 for cipher
+     */
     private List<Character> plotTwo;
+    /**
+     * Array Q3 for cipher
+     */
     private List<Character> plotThree;
     /**
      * preparation for test

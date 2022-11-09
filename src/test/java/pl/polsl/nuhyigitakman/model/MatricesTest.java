@@ -19,11 +19,26 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class MatricesTest {
     private Matrices matrices;
+    /**
+     * Array with filled alphabet
+     */
 
     private List<Character> alphabet;
+    /**
+     * Array that is not filled as an alphabet
+     */
     private List<Character> notAlphabet;
+    /**
+     * Plot array for test methods.
+     */
     private List<Character> plot;
+    /**
+     * Expected plot array after adding key to plot
+     */
     private List<Character> keyPlot;
+    /**
+     * Not the expected array after adding key to plot
+     */
     private List<Character> notKeyPlot;
 
     /**
