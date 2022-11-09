@@ -11,7 +11,7 @@ import pl.polsl.nuhyigitakman.model.Matrices;
  *
  * @author Nuh Yigit Akman
  *
- * @version 1.0
+ * @version 1.1
  */
 public class Controller {
 

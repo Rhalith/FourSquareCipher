@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Nuh Yigit Akman
  *
- * @version 1.0
+ * @version 1.1
  */
 public class MatricesTest {
     private Matrices matrices;

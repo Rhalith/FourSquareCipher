@@ -10,7 +10,7 @@ import static java.util.stream.Collectors.counting;
  *
  * @author Nuh Yigit Akman
  *
- * @version 1.0
+ * @version 1.1
  */
 public class Coder {
     /**

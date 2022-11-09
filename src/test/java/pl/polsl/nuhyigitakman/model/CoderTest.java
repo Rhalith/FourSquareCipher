@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Nuh Yigit Akman
  *
- * @version 1.0
+ * @version 1.1
  */
 @TestMethodOrder(OrderAnnotation.class)
 public class CoderTest {
@@ -25,6 +25,9 @@ public class CoderTest {
     private List<Character> plot;
     private List<Character> plotTwo;
     private List<Character> plotThree;
+    /**
+     * preparation for test
+     */
     @BeforeEach
     public void setUp() {
         coder = new Coder();
