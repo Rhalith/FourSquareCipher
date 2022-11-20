@@ -3,6 +3,7 @@ package pl.polsl.nuhyigitakman.view;
 import pl.polsl.nuhyigitakman.controller.Controller;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
@@ -38,7 +39,8 @@ public class View {
      * Main run method for program.
      */
     public void run(){
-        new EncryptOrDecrypt();
+        new Menu();
+        //new EncryptOrDecrypt();
 //        /**
 //         * User encoding choice
 //         */
@@ -287,4 +289,97 @@ class TextInputMenu{
             }
         });
     }
+}
+
+class Menu{
+    Menu(){
+        JFrame frame = new JFrame("Four-Square Cipher by Rhalith");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JLabel keyOneText, keyTwoText, userInputText;
+        keyOneText = new JLabel("Key One :");
+        keyTwoText = new JLabel("Key Two :");
+        userInputText = new JLabel("Input :");
+        JTextField keyOne = new JTextField();
+        JTextField keyTwo = new JTextField();
+        JTextField userInput = new JTextField();
+        JButton enter = new JButton("Enter");
+        JRadioButton manualButton = new JRadioButton("Manual");
+        JRadioButton randomButton = new JRadioButton("Random");
+        manualButton.setBounds(40,100,80,30);
+        randomButton.setBounds(180,200,80,30);
+
+       keyOneText.setBounds(10,200,80,30);
+     //   keyOne.setBounds(80,200,250,30);
+     //   keyTwoText.setBounds(10,250,80,30);
+     //   keyTwo.setBounds(80,250,250,30);
+     //   userInputText.setBounds(30,300,80,30);
+     //   userInput.setBounds(80,300,250,30);
+     //   enter.setBounds(100,350,80,30);
+        JPanel encrypt = new JPanel();
+        JPanel decrypt = new JPanel();
+        JPanel history = new JPanel();
+
+
+
+        encrypt.add(keyOneText);
+     //   encrypt.add(keyTwoText);
+     //   encrypt.add(userInputText);
+     //   encrypt.add(keyOne);
+     //   encrypt.add(keyTwo);
+      //  encrypt.add(userInput);
+      //  encrypt.add(enter);
+
+        encrypt.add(manualButton, 0);
+        encrypt.add(randomButton, 2);
+        encrypt.add(keyOneText, 1);
+
+
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.setBounds(10,20,350,400);
+
+        tabbedPane.add("Encryption",encrypt);
+        tabbedPane.add("Decryption",decrypt);
+        tabbedPane.add("History",history);
+
+        frame.add(tabbedPane);
+
+
+
+
+        frame.setSize(400,475);
+        frame.setLayout(null);
+        frame.setVisible(true);
+
+
+
+        manualButton.addActionListener(e -> {
+            randomButton.setSelected(false);
+            keyOneText.setVisible(true);
+            keyTwoText.setVisible(true);
+            keyOne.setVisible(true);
+            keyTwo.setVisible(true);
+            frame.setSize(400,450);
+            userInputText.setBounds(30,300,80,30);
+            userInput.setBounds(80,300,250,30);
+            enter.setBounds(100,350,80,30);
+        });
+
+        randomButton.addActionListener(e -> {
+            manualButton.setSelected(false);
+            keyOneText.setVisible(false);
+            keyTwoText.setVisible(false);
+            keyOne.setVisible(false);
+            keyTwo.setVisible(false);
+            frame.setSize(400,350);
+            userInputText.setBounds(30,200,80,30);
+            userInput.setBounds(80,200,250,30);
+            enter.setBounds(100,250,80,30);
+        });
+
+
+
+    }
+
 }
