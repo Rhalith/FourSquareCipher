@@ -87,11 +87,19 @@ public class Controller {
     public String getMatrices(String choice){
         String output;
         if(choice.equals("one")){
-            output = matrices.getPlotTwo().toString();
+            output = matrices.getPlotTwo().toString().substring(1, 3 * matrices.getPlotTwo().size() - 1).replaceAll(", ", "");
 
         } else {
-            output = matrices.getPlotThree().toString();
+            output = matrices.getPlotThree().toString().substring(1, 3 * matrices.getPlotThree().size() - 1).replaceAll(", ", "");
         }
         return output;
+    }
+
+    /**
+     * For new operation clear matrices.
+     */
+    public void ClearMatrices(){
+        matrices.getPlotTwo().clear();
+        matrices.getPlotThree().clear();
     }
 }
