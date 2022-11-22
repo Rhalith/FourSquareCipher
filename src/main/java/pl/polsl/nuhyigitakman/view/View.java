@@ -239,7 +239,7 @@ class Menu{
         });
 
         history.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Ne basıyon amcık");
+            JOptionPane.showMessageDialog(null, "Not ready");
             frame.dispose();
         });
     }
