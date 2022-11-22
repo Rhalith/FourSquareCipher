@@ -69,10 +69,11 @@ class Menu{
      */
     int userCryptionChoice;
 
-    List<String> keyOneInputs = new ArrayList<>();
-    List<String> keyTwoInputs = new ArrayList<>();
-    List<String> userTexts = new ArrayList<>();
-    List<String> outputs = new ArrayList<>();
+    String encryptOrDecrypt;
+
+
+    List<History> Histories = new ArrayList<>();
+
     Menu(Controller controller){
         JFrame frame = new JFrame("Four-Square Cipher by Rhalith");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,7 +106,7 @@ class Menu{
         JMenu encryptionMenu = new JMenu("Encrypt");
         JMenu decryptionMenu = new JMenu("Decrypt");
 
-        JMenuItem history = new JMenuItem("History");
+        JMenuItem historyItem = new JMenuItem("History");
 
         JMenuItem manualEncryption = new JMenuItem("Manual");
         JMenuItem randomEncryption = new JMenuItem("Random");
@@ -121,7 +122,7 @@ class Menu{
 
         mainMenu.add(encryptionMenu);
         mainMenu.add(decryptionMenu);
-        mainMenu.add(history);
+        mainMenu.add(historyItem);
 
         menuBar.add(mainMenu);
 
@@ -189,6 +190,7 @@ class Menu{
                     controller.updateController(3, keyTwoInput);
                     controller.updateController(1,"");
                     output = controller.updateController("E", userText);
+                    encryptOrDecrypt = "Encryption";
                     break;
                 case 1:
                     keyOneInput = "";
@@ -198,6 +200,7 @@ class Menu{
                     controller.updateController(3, keyTwoInput);
                     controller.updateController(1,"");
                     output = controller.updateController("E", userText);
+                    encryptOrDecrypt = "Encryption";
                     break;
                 case 2:
                     keyOneInput = keyOne.getText().toUpperCase(Locale.forLanguageTag("en"));
@@ -207,6 +210,7 @@ class Menu{
                     controller.updateController(3, keyTwoInput);
                     controller.updateController(1,"");
                     output = controller.updateController("D", userText);
+                    encryptOrDecrypt = "Decryption";
                     break;
                 case 3:
                     keyOneInput = "";
@@ -216,6 +220,7 @@ class Menu{
                     controller.updateController(3, keyTwoInput);
                     controller.updateController(1,"");
                     output = controller.updateController("D", userText);
+                    encryptOrDecrypt = "Decryption";
                     break;
             }
             if(!userText.matches("[a-zA-Z]+(\\s+[a-zA-Z]+)*") || !keyOneInput.matches("[a-zA-Z]+(\\s+[a-zA-Z]+)*") || !keyTwoInput.matches("[a-zA-Z]+(\\s+[a-zA-Z]+)*")){
@@ -225,20 +230,13 @@ class Menu{
             }
             else{
                 JOptionPane.showMessageDialog(frame,output);
-                keyOneInputs.add(controller.getMatrices("one"));
-                keyTwoInputs.add(controller.getMatrices("two"));
-                userTexts.add(userText);
-                outputs.add(output);
-
-                System.out.println(keyOneInputs);
-                System.out.println(keyTwoInputs);
-                System.out.println(userTexts);
-                System.out.println(outputs);
+                History history = new History(encryptOrDecrypt, controller.getMatrices("one"), controller.getMatrices("two"), userText, output);
+                Histories.add(history);
             }
 
         });
 
-        history.addActionListener(e -> {
+        historyItem.addActionListener(e -> {
             JOptionPane.showMessageDialog(null, "Not ready");
             frame.dispose();
         });
@@ -264,7 +262,40 @@ class Menu{
         userInput.setBounds(80,200,250,30);
         enter.setBounds(100,250,80,30);
     }
+}
 
+class History{
+    private String userChoice = new String();
+    private String keyOne = new String();
+    private String keyTwo = new String();
+    private String userText = new String();
+    private String output = new String();
 
+    History(String userChoice, String keyOneInput, String keyTwoInput, String userText, String output){
+        this.userChoice = userChoice;
+        this.keyOne = keyOneInput;
+        this.keyTwo = keyTwoInput;
+        this.userText = userText;
+        this.output = output;
+    }
 
+    public String getKeyOneInput() {
+        return keyOne;
+    }
+
+    public String getKeyTwoInput() {
+        return keyTwo;
+    }
+
+    public String getUserText() {
+        return userText;
+    }
+
+    public String getOutput() {
+        return output;
+    }
+
+    public String getUserChoice() {
+        return userChoice;
+    }
 }
