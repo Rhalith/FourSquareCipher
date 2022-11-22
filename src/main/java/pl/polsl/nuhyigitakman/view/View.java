@@ -3,11 +3,8 @@ package pl.polsl.nuhyigitakman.view;
 import pl.polsl.nuhyigitakman.controller.Controller;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
+import java.util.List;
 
 /**
  *
@@ -39,347 +36,235 @@ public class View {
      * Main run method for program.
      */
     public void run(){
-        new Menu();
-        //new EncryptOrDecrypt();
-//        /**
-//         * User encoding choice
-//         */
-//        String userChoice = new String();
-//        /**
-//         * User's key choice(random or manual)
-//         */
-//        String keyChoice = new String();
-//        /**
-//         * User's key input
-//         */
-//        String keyInput = new String();
-//        /**
-//         * User's input for encryption or decryption
-//         */
-//        String userText = new String();
-//        /**
-//         * Result of encoding
-//         */
-//        String output = new String();
-//        /**
-//         * Question text for getting input from user
-//         */
-//        String questionText = new String();
-//        /**
-//         * Warning text for user to get right input.
-//         */
-//        String warningText = new String();
-//
-//
-//        questionText = "Encrypt for 'E', Decrypt for 'D'";
-//        warningText = "Please make your choice between 'E' or 'D'!";
-//        userChoice = getInput(scanner, questionText, warningText, "E", "D");
-//
-//        System.out.println();
-//
-//        questionText = "If you want to enter your own key enter 'M'\nIf you want to let computer to decides key randomly enter 'R'";
-//        warningText = "Please make your choice between 'M' or 'R'!";
-//
-//        keyChoice = getInput(scanner, questionText, warningText, "M", "R");
-//
-//        if(keyChoice.equals("M")){
-//            questionText = "Please enter key 1:";
-//            keyInput = getInput(scanner, questionText, true);
-//
-//            controller.updateController(2, keyInput);
-//            questionText = "Please enter key 2:";
-//            keyInput = getInput(scanner, questionText, true);
-//            controller.updateController(3, keyInput);
-//        }
-//        else{
-//            controller.updateController(2, "");
-//            controller.updateController(3, "");
-//        }
-//        controller.updateController(1,"");
-//        questionText = "Please enter your text: ";
-//        userText = getInput(scanner, questionText, false);
-//
-//        output = controller.updateController(userChoice, userText);
-//
-//        getOutput(userText, output, userChoice);
+        new Menu(controller);
     }
 
 
-    /**
-     * This method gets string input and checks if satisfies the program.
-     * @param scanner scanner object
-     * @param questionText question for user
-     * @param warningText warning for wrong input
-     * @param reqOne correct input one
-     * @param reqTwo correct input two
-     * @return satisfying string
-     */
-    private String getInput(Scanner scanner, String questionText, String warningText, String reqOne, String reqTwo){
-        System.out.println(questionText);
-        System.out.print("Input your choice: ");
-        String userInput = new String();
-        userInput = scanner.next();
-        while (!(userInput.equals(reqOne) || userInput.equals(reqTwo))){
-            System.out.println();
-            if(!userInput.matches("[a-zA-Z]+"))
-            {
-                System.out.println("Please enter only English letters.");
-            }
-            System.out.println(warningText);
-            System.out.print("Input your choice: ");
-            userInput = scanner.next();
-        }
-        return userInput;
-    }
 
-    /**
-     * This method gets string input and checks if satisfies the english letters.
-     * @param scanner scanner object
-     * @param inputText description of input for user
-     * @param isKey checks for if the requirement is a key for cipher or text for input
-     * @return satisfying string
-     */
-    private String getInput(Scanner scanner, String inputText, Boolean isKey){
-        System.out.print(inputText);
-        String userInput = new String();
-        if(isKey){
-            try{
-                userInput = scanner.nextLine();
-            }
-            catch (Exception e){
-                getInput(scanner, inputText, isKey);
-            }
-        }
-        else{
-            try{
-                userInput = scanner.nextLine();
-            }
-            catch (Exception e){
-                getInput(scanner, inputText, isKey);
-            }
-        }
-        while (!userInput.matches("[a-zA-Z]+(\\s+[a-zA-Z]+)*")){
-            if(!userInput.equals("")){
-                System.out.println();
-                System.out.println("Please enter only English letters.");
-                System.out.print(inputText);
-            }
-            if(isKey){
-                userInput = scanner.next();
-            }
-            else{
-                userInput = scanner.nextLine();
-            }
-        }
-        return userInput.toUpperCase(Locale.forLanguageTag("en"));
-    }
-    /**
-     * Get result of encryption or decryption
-     * @param input data for encryption or decryption
-     * @param output result of encryption or decryption
-     * @param userChoice check if encryption or decryption
-     */
-
-    public void getOutput(String input, String output, String userChoice){
-        if(userChoice.equals("E")){
-            System.out.println("Your text was: "+input);
-            System.out.println("Your encrypted text is:"+output);
-        }
-        else{
-            System.out.println("Your text was: "+input);
-            System.out.println("Your decrypted text is:"+output);
-        }
-    }
-}
-class EncryptOrDecrypt{
-    EncryptOrDecrypt(){
-        JFrame f = new JFrame();
-        JButton e = new JButton("Encryption");
-        JButton d = new JButton("Decryption");
-        e.setBounds(50,50,100,40);
-        d.setBounds(250,50,100,40);
-        f.add(e);
-        f.add(d);
-        f.setSize(400,150);
-
-        f.setLayout(null);
-        f.setVisible(true);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        e.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                new RandomOrManual(f);
-            }
-        });
-        d.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                new RandomOrManual(f);
-            }
-        });
-    }
-}
-class RandomOrManual {
-    RandomOrManual(JFrame f){
-        JFrame m = new JFrame();
-        JButton manual = new JButton("Manual");
-        JButton random = new JButton("Random");
-        manual.setBounds(50,50,100,40);
-        random.setBounds(250,50,100,40);
-        m.add(manual);
-        m.add(random);
-        m.setSize(400,400);
-        f.dispose();
-        m.setLayout(null);
-        m.setVisible(true);
-        m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        manual.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                //new KeyInputMenu(m);
-                //will be used after filled keyinputmenu properly
-            }
-        });
-        random.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                new TextInputMenu(m);
-            }
-        });
-    }
-}
-
-class KeyInputMenu{
-    KeyInputMenu(JFrame f){
-        JFrame m = new JFrame();
-        JTextField text = new JTextField();
-        JButton enter = new JButton("");
-        enter.setBounds(50,50,100,40);
-        text.setBounds(50,100,100,40);
-        m.add(enter);
-        m.add(text);
-        m.setSize(400,400);
-        f.dispose();
-        m.setLayout(null);
-        m.setVisible(true);
-        m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        enter.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                //will set key to plot
-            }
-        });
-
-    }
-}
-
-class TextInputMenu{
-    TextInputMenu(JFrame f){
-        JFrame m = new JFrame();
-        JTextField text = new JTextField();
-        JButton enter = new JButton("Enter");
-        enter.setBounds(50,50,100,40);
-        text.setBounds(50,100,100,40);
-        m.add(enter);
-        m.add(text);
-        m.setSize(400,400);
-        f.dispose();
-        m.setLayout(null);
-        m.setVisible(true);
-        m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        enter.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Your crypted text is: nullforprototype");
-                m.dispose();
-            }
-        });
-    }
 }
 
 class Menu{
-    Menu(){
+    /**
+     * User's key input one
+     */
+    String keyOneInput;
+    /**
+     * User's key input two
+     */
+    String keyTwoInput;
+    /**
+     * User's input for encryption or decryption
+     */
+    String userText;
+    /**
+     * Result of encoding
+     */
+    String output;
+    /**
+     * user cryption choice for submission.
+     * 0 - Encrypt - Manual
+     * 1 - Encrypt - Random
+     * 2 - Decrypt - Manual
+     * 3 - Decrypt - Random
+     */
+    int userCryptionChoice;
+
+    List<String> keyOneInputs = new ArrayList<>();
+    List<String> keyTwoInputs = new ArrayList<>();
+    List<String> userTexts = new ArrayList<>();
+    List<String> outputs = new ArrayList<>();
+    Menu(Controller controller){
         JFrame frame = new JFrame("Four-Square Cipher by Rhalith");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel keyOneText, keyTwoText, userInputText;
+
         keyOneText = new JLabel("Key One :");
         keyTwoText = new JLabel("Key Two :");
         userInputText = new JLabel("Input :");
+
+        String cryptInfo = "<html>Welcome to four-square cipher. <br/>You can either encrypt your plain text, <br/>or decrypt your encrypted text<html/>";
+        JComponent cryptionInformation = new JLabel(cryptInfo);
+        String keyInfo = "<html>You can either enter your own keys,<br/> or can generate randomly new ones.<html/>";
+        JComponent keyInformation = new JLabel(keyInfo);
+
         JTextField keyOne = new JTextField();
         JTextField keyTwo = new JTextField();
         JTextField userInput = new JTextField();
+
+        JLabel cryptionChoice;
+
+        cryptionChoice = new JLabel("Encrypt - Manual");
+
         JButton enter = new JButton("Enter");
-        JRadioButton manualButton = new JRadioButton("Manual");
-        JRadioButton randomButton = new JRadioButton("Random");
-        manualButton.setBounds(40,100,80,30);
-        randomButton.setBounds(180,200,80,30);
 
-       keyOneText.setBounds(10,200,80,30);
-     //   keyOne.setBounds(80,200,250,30);
-     //   keyTwoText.setBounds(10,250,80,30);
-     //   keyTwo.setBounds(80,250,250,30);
-     //   userInputText.setBounds(30,300,80,30);
-     //   userInput.setBounds(80,300,250,30);
-     //   enter.setBounds(100,350,80,30);
-        JPanel encrypt = new JPanel();
-        JPanel decrypt = new JPanel();
-        JPanel history = new JPanel();
+        JMenu mainMenu = new JMenu("Menu");
 
+        JMenuBar menuBar = new JMenuBar();
 
+        JMenu encryptionMenu = new JMenu("Encrypt");
+        JMenu decryptionMenu = new JMenu("Decrypt");
 
-        encrypt.add(keyOneText);
-     //   encrypt.add(keyTwoText);
-     //   encrypt.add(userInputText);
-     //   encrypt.add(keyOne);
-     //   encrypt.add(keyTwo);
-      //  encrypt.add(userInput);
-      //  encrypt.add(enter);
+        JMenuItem history = new JMenuItem("History");
 
-        encrypt.add(manualButton, 0);
-        encrypt.add(randomButton, 2);
-        encrypt.add(keyOneText, 1);
+        JMenuItem manualEncryption = new JMenuItem("Manual");
+        JMenuItem randomEncryption = new JMenuItem("Random");
 
+        JMenuItem manualDecryption = new JMenuItem("Manual");
+        JMenuItem randomDecryption = new JMenuItem("Random");
 
+        encryptionMenu.add(manualEncryption);
+        encryptionMenu.add(randomEncryption);
 
-        JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.setBounds(10,20,350,400);
+        decryptionMenu.add(manualDecryption);
+        decryptionMenu.add(randomDecryption);
 
-        tabbedPane.add("Encryption",encrypt);
-        tabbedPane.add("Decryption",decrypt);
-        tabbedPane.add("History",history);
+        mainMenu.add(encryptionMenu);
+        mainMenu.add(decryptionMenu);
+        mainMenu.add(history);
 
-        frame.add(tabbedPane);
+        menuBar.add(mainMenu);
+
+        frame.setJMenuBar(menuBar);
+
+        cryptionChoice.setBounds(120,170,120,30);
+        keyOneText.setBounds(10,200,80,30);
+        keyOne.setBounds(80,200,250,30);
+        keyTwoText.setBounds(10,250,80,30);
+        keyTwo.setBounds(80,250,250,30);
+        userInputText.setBounds(30,300,80,30);
+        userInput.setBounds(80,300,250,30);
+        enter.setBounds(100,350,80,30);
 
 
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, cryptionInformation, keyInformation);
+
+        splitPane.setBounds(10,10,365,150);
+        frame.add(cryptionChoice);
+        frame.add(splitPane);
+        frame.add(keyOneText);
+        frame.add(keyTwoText);
+        frame.add(userInputText);
+        frame.add(keyOne);
+        frame.add(keyTwo);
+        frame.add(userInput);
+        frame.add(enter);
 
 
-        frame.setSize(400,475);
+
+        frame.setSize(400,450);
         frame.setLayout(null);
         frame.setVisible(true);
 
-
-
-        manualButton.addActionListener(e -> {
-            randomButton.setSelected(false);
-            keyOneText.setVisible(true);
-            keyTwoText.setVisible(true);
-            keyOne.setVisible(true);
-            keyTwo.setVisible(true);
-            frame.setSize(400,450);
-            userInputText.setBounds(30,300,80,30);
-            userInput.setBounds(80,300,250,30);
-            enter.setBounds(100,350,80,30);
+        manualEncryption.addActionListener(e -> {
+            ManualChoice(frame, userInputText, userInput, enter, keyOneText, keyTwoText, keyOne, keyTwo);
+            cryptionChoice.setText("Encrypt - Manual");
+            userCryptionChoice = 0;
         });
 
-        randomButton.addActionListener(e -> {
-            manualButton.setSelected(false);
-            keyOneText.setVisible(false);
-            keyTwoText.setVisible(false);
-            keyOne.setVisible(false);
-            keyTwo.setVisible(false);
-            frame.setSize(400,350);
-            userInputText.setBounds(30,200,80,30);
-            userInput.setBounds(80,200,250,30);
-            enter.setBounds(100,250,80,30);
+        randomEncryption.addActionListener(e -> {
+            RandomChoice(frame, userInputText, userInput, enter, keyOneText, keyTwoText, keyOne, keyTwo);
+            cryptionChoice.setText("Encrypt - Random");
+            userCryptionChoice = 1;
+        });
+        manualDecryption.addActionListener(e -> {
+            ManualChoice(frame, userInputText, userInput, enter, keyOneText, keyTwoText, keyOne, keyTwo);
+            cryptionChoice.setText("Decrypt - Manual");
+            userCryptionChoice = 2;
         });
 
+        randomDecryption.addActionListener(e -> {
+            RandomChoice(frame, userInputText, userInput, enter, keyOneText, keyTwoText, keyOne, keyTwo);
+            cryptionChoice.setText("Decrypt - Random");
+            userCryptionChoice = 3;
+        });
 
+        enter.addActionListener(e -> {
+            switch (userCryptionChoice){
+                case 0:
+                    keyOneInput = keyOne.getText().toUpperCase(Locale.forLanguageTag("en"));
+                    keyTwoInput = keyTwo.getText().toUpperCase(Locale.forLanguageTag("en"));
+                    userText = userInput.getText().toUpperCase(Locale.forLanguageTag("en"));
+                    controller.updateController(2, keyOneInput);
+                    controller.updateController(3, keyTwoInput);
+                    controller.updateController(1,"");
+                    output = controller.updateController("E", userText);
+                    break;
+                case 1:
+                    keyOneInput = "";
+                    keyTwoInput = "";
+                    userText = userInput.getText();
+                    controller.updateController(2, keyOneInput);
+                    controller.updateController(3, keyTwoInput);
+                    controller.updateController(1,"");
+                    output = controller.updateController("E", userText);
+                    break;
+                case 2:
+                    keyOneInput = keyOne.getText().toUpperCase(Locale.forLanguageTag("en"));
+                    keyTwoInput = keyTwo.getText().toUpperCase(Locale.forLanguageTag("en"));
+                    userText = userInput.getText().toUpperCase(Locale.forLanguageTag("en"));
+                    controller.updateController(2, keyOneInput);
+                    controller.updateController(3, keyTwoInput);
+                    controller.updateController(1,"");
+                    output = controller.updateController("D", userText);
+                    break;
+                case 3:
+                    keyOneInput = "";
+                    keyTwoInput = "";
+                    userText = userInput.getText();
+                    controller.updateController(2, keyOneInput);
+                    controller.updateController(3, keyTwoInput);
+                    controller.updateController(1,"");
+                    output = controller.updateController("D", userText);
+                    break;
+            }
+            if(!userText.matches("[a-zA-Z]+(\\s+[a-zA-Z]+)*") || !keyOneInput.matches("[a-zA-Z]+(\\s+[a-zA-Z]+)*") || !keyTwoInput.matches("[a-zA-Z]+(\\s+[a-zA-Z]+)*")){
+                JOptionPane.showMessageDialog(frame,"Please enter only English letters.");
+            } else if (userText.length() < 1) {
+                JOptionPane.showMessageDialog(frame,"Please enter more than 2 letters");
+            }
+            else{
+                JOptionPane.showMessageDialog(frame,output);
+                keyOneInputs.add(controller.getMatrices("one"));
+                keyTwoInputs.add(controller.getMatrices("two"));
+                userTexts.add(userText);
+                outputs.add(output);
 
+                System.out.println(keyOneInputs);
+                System.out.println(keyTwoInputs);
+                System.out.println(userTexts);
+                System.out.println(outputs);
+            }
+
+        });
+
+        history.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "Ne basıyon amcık");
+            frame.dispose();
+        });
     }
+
+    private void ManualChoice(JFrame frame, JComponent userInputText, JComponent userInput, JComponent enter, JComponent... components)
+    {
+        for (JComponent component : components) {
+            component.setVisible(true);
+        }
+        frame.setSize(400,450);
+        userInputText.setBounds(30,300,80,30);
+        userInput.setBounds(80,300,250,30);
+        enter.setBounds(100,350,80,30);
+    }
+    private void RandomChoice(JFrame frame, JComponent userInputText, JComponent userInput, JComponent enter, JComponent... components)
+    {
+        for (JComponent component : components) {
+            component.setVisible(false);
+        }
+        frame.setSize(400,350);
+        userInputText.setBounds(30,200,80,30);
+        userInput.setBounds(80,200,250,30);
+        enter.setBounds(100,250,80,30);
+    }
+
+
 
 }

@@ -83,4 +83,15 @@ public class Controller {
         }
         return output;
     }
+
+    public String getMatrices(String choice){
+        String output;
+        if(choice.equals("one")){
+            output = matrices.getPlotTwo().toString();
+
+        } else {
+            output = matrices.getPlotThree().toString();
+        }
+        return output;
+    }
 }
