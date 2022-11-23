@@ -239,7 +239,7 @@ class Menu{
             if(userCryptionChoice == 0 || userCryptionChoice == 2){
                 if(!userText.matches("[a-zA-Z]+(\\s+[a-zA-Z]+)*") || !keyOneInput.matches("[a-zA-Z]+(\\s+[a-zA-Z]+)*") || !keyTwoInput.matches("[a-zA-Z]+(\\s+[a-zA-Z]+)*")){
                     JOptionPane.showMessageDialog(frame,"Please enter only English letters.");
-                } else if (userText.length() < 1) {
+                } else if (userText.length() < 2) {
                     JOptionPane.showMessageDialog(frame,"Please enter more than 2 letters");
                 }
                 else{
@@ -252,7 +252,7 @@ class Menu{
             else{
                 if(!userText.matches("[a-zA-Z]+(\\s+[a-zA-Z]+)*")){
                     JOptionPane.showMessageDialog(frame,"Please enter only English letters.");
-                } else if (userText.length() < 1) {
+                } else if (userText.length() < 2) {
                     JOptionPane.showMessageDialog(frame,"Please enter more than 2 letters");
                 }
                 else{
