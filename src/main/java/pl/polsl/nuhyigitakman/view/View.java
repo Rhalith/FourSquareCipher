@@ -74,7 +74,6 @@ class Menu{
 
     List<History> histories = new ArrayList<>();
 
-    JFrame historyFrame = new JFrame();
 
     Menu(Controller controller){
         controller.updateController(1,"");
@@ -252,7 +251,7 @@ class Menu{
 
         });
 
-        historyItem.addActionListener(e -> new History(historyFrame, histories));
+        historyItem.addActionListener(e -> new HistoryFrame(new JFrame(), histories));
     }
 
     private void ManualChoice(JFrame frame, JComponent userInputText, JComponent userInput, JComponent enter, JComponent... components)
@@ -278,77 +277,13 @@ class Menu{
 }
 
 class History{
+
     private String userChoice;
     private String keyOne;
     private String keyTwo;
     private String userText;
     private String output;
 
-    boolean isFirst = false;
-
-
-    History(JFrame frame, List<History> histories){
-        isFirst = true;
-        createHistoryPage(frame);
-        if(histories.size() >= 1){
-            if(!isFirst){
-                isFirst = true;
-                createHistoryPage(frame);
-            }
-
-            for (int i = 0; i < histories.size(); i++) {
-                JLabel temporaryChoice, temporaryKeyOne, temporaryKeyTwo, temporaryUserText, temporaryOutput;
-
-                temporaryChoice = new JLabel(histories.get(i).userChoice);
-                temporaryKeyOne = new JLabel(histories.get(i).keyOne);
-                temporaryKeyTwo = new JLabel(histories.get(i).keyTwo);
-                temporaryUserText = new JLabel(histories.get(i).userText);
-                temporaryOutput = new JLabel(histories.get(i).output);
-
-                temporaryChoice.setBounds(10, (i+1)*30+10, 100 ,30);
-                temporaryKeyOne.setBounds(220,(i+1)*30+10,240,30);
-                temporaryKeyTwo.setBounds(520,(i+1)*30+10,240,30);
-                temporaryUserText.setBounds(800,(i+1)*30+10,100,30);
-                temporaryOutput.setBounds(1030,(i+1)*30+10,100,30);
-
-                frame.add(temporaryChoice);
-                frame.add(temporaryKeyOne);
-                frame.add(temporaryKeyTwo);
-                frame.add(temporaryUserText);
-                frame.add(temporaryOutput);
-            }
-            frame.setLayout(null);
-            frame.setSize(1200,500);
-            frame.setVisible(true);
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "You did not perform any action yet!");
-        }
-    }
-
-    void createHistoryPage(JFrame frame){
-
-        JLabel encryptOrDecrypt, keyOneLabel, keyTwoLabel, userTextLabel, outputLabel;
-
-        encryptOrDecrypt = new JLabel("Encrypt/Decrypt");
-        keyOneLabel = new JLabel("Key One");
-        keyTwoLabel = new JLabel("Key Two");
-        userTextLabel = new JLabel("User Input");
-        outputLabel = new JLabel("Output");
-
-        encryptOrDecrypt.setBounds(10,10,100,30);
-        keyOneLabel.setBounds(220,10,240,30);
-        keyTwoLabel.setBounds(520,10,240,30);
-        userTextLabel.setBounds(800,10,100,30);
-        outputLabel.setBounds(1030,10,100,30);
-
-        frame.add(encryptOrDecrypt);
-        frame.add(keyOneLabel);
-        frame.add(keyTwoLabel);
-        frame.add(userTextLabel);
-        frame.add(outputLabel);
-    }
 
     History(String userChoice, String keyOneInput, String keyTwoInput, String userText, String output){
         this.userChoice = userChoice;
@@ -356,5 +291,64 @@ class History{
         this.keyTwo = keyTwoInput;
         this.userText = userText;
         this.output = output;
+    }
+
+    public String getUserChoice() {
+        return userChoice;
+    }
+
+    public String getKeyOne() {
+        return keyOne;
+    }
+
+    public String getKeyTwo() {
+        return keyTwo;
+    }
+
+    public String getUserText() {
+        return userText;
+    }
+
+    public String getOutput() {
+        return output;
+    }
+}
+
+class HistoryFrame {
+    String[][] data = new String[1][5];
+    String[] column = {"Encrypt/Decrypt", "Key One", "Key Two", "User Input", "Output"};
+    JTable table;
+    HistoryFrame(JFrame frame, List<History> histories) {
+        if (histories.size() >= 1) {
+
+            for (int i = 0; i < histories.size(); i++) {
+                if (histories.size() > data.length) data = increaseSize(data);
+                data[i][0] = histories.get(i).getUserChoice();
+                data[i][1] = histories.get(i).getKeyOne();
+                data[i][2] = histories.get(i).getKeyTwo();
+                data[i][3] = histories.get(i).getUserText();
+                data[i][4] = histories.get(i).getOutput();
+            }
+            table = new JTable(data, column);
+            table.setBounds(30, 40, 1100, 480);
+            JScrollPane scrollPane = new JScrollPane(table);
+            scrollPane.setBounds(10, 10, 1100, 480);
+            frame.add(scrollPane);
+            frame.setLayout(null);
+            frame.setSize(1200, 500);
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        } else {
+            JOptionPane.showMessageDialog(null, "You did not perform any action yet!");
+        }
+
+    }
+    private String[][] increaseSize(String[][] original) {
+        String[][] temp = new String[original.length + 1][original[0].length];
+
+        for (int i = 0; i < original.length; i++){
+            System.arraycopy(original[i], 0, temp[i], 0, original[i].length);
+        }
+        return temp;
     }
 }
