@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author Nuh Yigit Akman
  *
- * @version 1.1
+ * @version 1.2
  */
 public class Main {
 

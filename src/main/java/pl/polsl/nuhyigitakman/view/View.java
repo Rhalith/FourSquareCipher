@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Nuh Yigit Akman
  *
- * @version 1.1
+ * @version 1.2
  */
 public class View {
     /**
@@ -42,7 +42,12 @@ public class View {
 
 
 }
-
+/**
+ *
+ * @author Nuh Yigit Akman
+ *
+ * @version 1.2
+ */
 class Menu{
     /**
      * User's key input one
@@ -69,12 +74,22 @@ class Menu{
      */
     int userCryptionChoice;
 
+    /**
+     * user cryption choice for history
+     */
     String encryptOrDecrypt;
 
+    /**
+     * history list of performed actions
+     */
 
     List<History> histories = new ArrayList<>();
 
 
+    /**
+     * Constructor for menu class to open new History GUI
+     * @param controller controller class
+     */
     Menu(Controller controller){
         controller.updateController(1,"");
         JFrame frame = new JFrame("Four-Square Cipher by Rhalith");
@@ -254,6 +269,14 @@ class Menu{
         historyItem.addActionListener(e -> new HistoryFrame(new JFrame(), histories));
     }
 
+    /**
+     * Update of GUI if userChoice manual key input
+     * @param frame GUI frame
+     * @param userInputText Component text of userInput
+     * @param userInput Component userInput
+     * @param enter Component enter button
+     * @param components components of only manual key input
+     */
     private void ManualChoice(JFrame frame, JComponent userInputText, JComponent userInput, JComponent enter, JComponent... components)
     {
         for (JComponent component : components) {
@@ -264,6 +287,15 @@ class Menu{
         userInput.setBounds(80,300,250,30);
         enter.setBounds(100,350,80,30);
     }
+
+    /**
+     * Update of GUI if userChoice random key input
+     * @param frame GUI frame
+     * @param userInputText Component text of userInput
+     * @param userInput Component userInput
+     * @param enter Component enter button
+     * @param components components of only manual key input
+     */
     private void RandomChoice(JFrame frame, JComponent userInputText, JComponent userInput, JComponent enter, JComponent... components)
     {
         for (JComponent component : components) {
@@ -275,16 +307,44 @@ class Menu{
         enter.setBounds(100,250,80,30);
     }
 }
-
+/**
+ *
+ * @author Nuh Yigit Akman
+ *
+ * @version 1.2
+ */
 class History{
 
-    private String userChoice;
-    private String keyOne;
-    private String keyTwo;
-    private String userText;
-    private String output;
+    /**
+     * user encrypt/decrypt choice
+     */
+    private final String userChoice;
+    /**
+     * key one for four-square cipher
+     */
+    private final String keyOne;
+    /**
+     * key two for four-square cipher
+     */
+    private final String keyTwo;
+    /**
+     * user input text for encryption/decryption
+     */
+    private final String userText;
+    /**
+     * text result of encryption/decryption
+     */
+    private final String output;
 
 
+    /**
+     * Constructor of History class for assign string variables
+     * @param userChoice user encrypt/decrypt choice
+     * @param keyOneInput user key one for four-square cipher
+     * @param keyTwoInput user key two for four-square cipher
+     * @param userText user input text for encryption/decryption
+     * @param output text result of encryption/decryption
+     */
     History(String userChoice, String keyOneInput, String keyTwoInput, String userText, String output){
         this.userChoice = userChoice;
         this.keyOne = keyOneInput;
@@ -293,31 +353,68 @@ class History{
         this.output = output;
     }
 
+    /**
+     * get userChoice
+     * @return userChoice
+     */
     public String getUserChoice() {
         return userChoice;
     }
 
+    /**
+     * get keyOne
+     * @return keyOne
+     */
     public String getKeyOne() {
         return keyOne;
     }
 
+    /**
+     * get keyTwo
+     * @return keyTwo
+     */
     public String getKeyTwo() {
         return keyTwo;
     }
 
+    /**
+     * get userText
+     * @return userText
+     */
     public String getUserText() {
         return userText;
     }
 
+    /**
+     * get output
+     * @return output
+     */
     public String getOutput() {
         return output;
     }
 }
 
+/**
+ *
+ * @author Nuh Yigit Akman
+ *
+ * @version 1.2
+ */
 class HistoryFrame {
+    /**
+     * Data array for history JTable
+     */
     String[][] data = new String[1][5];
+    /**
+     * Column array for history JTable
+     */
     String[] column = {"Encrypt/Decrypt", "Key One", "Key Two", "User Input", "Output"};
-    JTable table;
+
+    /**
+     * Constructor of HistoryFrame Class
+     * @param frame JFrame for add JTable
+     * @param histories List of variables that performed by user
+     */
     HistoryFrame(JFrame frame, List<History> histories) {
         if (histories.size() >= 1) {
 
@@ -329,7 +426,7 @@ class HistoryFrame {
                 data[i][3] = histories.get(i).getUserText();
                 data[i][4] = histories.get(i).getOutput();
             }
-            table = new JTable(data, column);
+            JTable table = new JTable(data, column);
             table.setBounds(30, 40, 1100, 480);
             JScrollPane scrollPane = new JScrollPane(table);
             scrollPane.setBounds(10, 10, 1100, 480);
@@ -343,6 +440,12 @@ class HistoryFrame {
         }
 
     }
+
+    /**
+     * Makes array dynamic for increase size of it.
+     * @param original 2D array that needs to be increase it size
+     * @return size increased 2D array
+     */
     private String[][] increaseSize(String[][] original) {
         String[][] temp = new String[original.length + 1][original[0].length];
 
