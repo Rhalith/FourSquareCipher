@@ -52,19 +52,19 @@ class Menu{
     /**
      * User's key input one
      */
-    String keyOneInput;
+    private String keyOneInput;
     /**
      * User's key input two
      */
-    String keyTwoInput;
+    private String keyTwoInput;
     /**
      * User's input for encryption or decryption
      */
-    String userText;
+    private String userText;
     /**
      * Result of encoding
      */
-    String output;
+    private String output;
     /**
      * user cryption choice for submission.
      * 0 - Encrypt - Manual
@@ -72,18 +72,18 @@ class Menu{
      * 2 - Decrypt - Manual
      * 3 - Decrypt - Random
      */
-    int userCryptionChoice;
+    private int userCryptionChoice;
 
     /**
      * user cryption choice for history
      */
-    String encryptOrDecrypt;
+    private String encryptOrDecrypt;
 
     /**
      * history list of performed actions
      */
 
-    List<History> histories = new ArrayList<>();
+    private final List<History> histories = new ArrayList<>();
 
 
     /**
