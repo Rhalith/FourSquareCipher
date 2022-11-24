@@ -18,6 +18,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1.1
  */
 public class MatricesTest {
+    /**
+     * Matrices class
+     */
     private Matrices matrices;
     /**
      * Array with filled alphabet

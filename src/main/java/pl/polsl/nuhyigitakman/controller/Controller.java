@@ -84,6 +84,11 @@ public class Controller {
         return output;
     }
 
+    /**
+     * Get matrices for key history
+     * @param choice chocie of key one or two
+     * @return chosen key
+     */
     public String getMatrices(String choice){
         String output;
         if(choice.equals("one")){
